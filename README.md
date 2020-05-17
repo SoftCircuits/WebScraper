@@ -49,14 +49,15 @@ As you can see, there are a number of steps to get the class working. We'll go t
 
 After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain a `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number. We'll discuss this a little more later.
 
-The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply. We will discuss this further a little later.
+The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply. We will also discuss this a little more later.
 
 #### ContainerSelector
 
-For now, just expect the library to replace this tag with the current page number.
+The `ContainerSelector` property is a string *selector* that identifies the elements on the page that contain all the items to be scraped. Selectors used by WebScraper are similar to CSS or jQuery selectors. There is a section on WebScraper selectors below. For now, just know that selectors describe specific elements on a page.
 
-The other 
+The container narrows down the area to be searched when looking for data to scrape, and so it makes the code a little more efficient. But `ContainerSelector` is the only selector that is optional. If it is not provided, then the entire page is the container.
 
+#### ItemSelector
 
-
+The `ItemSelector` property identifies 
 
