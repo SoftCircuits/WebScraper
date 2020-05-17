@@ -43,9 +43,19 @@ scraper.UpdateProgress += Scraper_UpdateProgress;
 await scraper.RunAsync(@"ScraperData.csv");
 ```
 
-As you can see, there is quite a bit of setup to get it working. We'll step through that here.
+As you can see, there are a number of steps to get the class working. We'll go through those steps here.
 
-After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a complete, regular URL. But it can also contain replacement tags.
+#### Url
+
+After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain a `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number. We'll discuss this a little more later.
+
+The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply. We will discuss this further a little later.
+
+#### ContainerSelector
+
+For now, just expect the library to replace this tag with the current page number.
+
+The other 
 
 
 
