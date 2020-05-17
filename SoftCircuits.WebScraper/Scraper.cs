@@ -101,7 +101,8 @@ namespace SoftCircuits.WebScraper
         }
 
         /// <summary>
-        /// 
+        /// Uses the current setting to extract data from the Internet and write
+        /// the data to a CSV file with the the given name.
         /// </summary>
         /// <param name="csvFile"></param>
         public async Task RunAsync(string csvFile)
@@ -109,13 +110,13 @@ namespace SoftCircuits.WebScraper
             UrlsScanned = UrlErrors = 0;
             bool hasMorePages = false;
 
-            // Check for obvious errors
-            if (string.IsNullOrWhiteSpace(Url))
-                throw new Exception("A valid URL is required.");
-
             // Verify an output file was specified
             if (csvFile == null)
                 throw new ArgumentNullException(nameof(csvFile));
+
+            // Check for obvious errors
+            if (string.IsNullOrWhiteSpace(Url))
+                throw new Exception("A valid URL is required.");
 
             // Parse selectors
             SelectorCollection containerSelectors = Selector.ParseSelector(ContainerSelector);
