@@ -10,6 +10,9 @@ Install-Package SoftCircuits.WebScraper
 
 .NET library to scrape content from the Internet. Use it to extract information from Web pages in your own application.
 
+## Using the Library
+
+Some example code that uses the library is shown below.
 
 ```cs
 // Create Scraper object and set properties
@@ -40,11 +43,9 @@ scraper.UpdateProgress += Scraper_UpdateProgress;
 await scraper.RunAsync(@"ScraperData.csv");
 ```
 
-## Using the Library
+As you can see, there is quite a bit of setup to get it working. We'll step through that here.
 
-To use the library, create an instance of the `Scraper` class. This class requires you to set up a number of properties to scrape data, which we'll go through next.
-
-Start by setting the `Url` property to the URL you want to scrape. This property can be set to any complete URL. But it can also contain replacement tags.
+After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a complete, regular URL. But it can also contain replacement tags.
 
 
 
