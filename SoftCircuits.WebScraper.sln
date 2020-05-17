@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftCircuits.WebScraper", "SoftCircuits.WebScraper\SoftCircuits.WebScraper.csproj", "{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraper.Tests", "WebScraper.Tests\WebScraper.Tests.csproj", "{A2332090-58EB-427F-B572-D2E806769805}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2332090-58EB-427F-B572-D2E806769805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2332090-58EB-427F-B572-D2E806769805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2332090-58EB-427F-B572-D2E806769805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2332090-58EB-427F-B572-D2E806769805}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AE5BB81-8D66-426E-B428-4C4BB5447DAC}
+	EndGlobalSection
+EndGlobal

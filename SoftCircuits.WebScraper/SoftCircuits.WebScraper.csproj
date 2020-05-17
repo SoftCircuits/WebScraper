@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Jonathan Wood</Authors>
+    <Company>SoftCircuits</Company>
+    <PackageProjectUrl>https://github.com/SoftCircuits/WebScraper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SoftCircuits/WebScraper</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>web scraper scraping web-scraper web-scraping html agility bot</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>Copyright © 2020 SoftCircuits</Copyright>
+    <PackageIcon>Logo_64x64.png</PackageIcon>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <Description>.NET library that makes it easy to implement a Web scraper that extracts information from Web pages. Handles paging and supports any number of URL "tags" that can cycled through to generate URL variations.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SoftCircuits.CsvParser" Version="2.1.2" />
+    <PackageReference Include="SoftCircuits.HtmlMonkey" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\Logo_64x64.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
