@@ -20,15 +20,15 @@ Scraper scraper = new Scraper();
 
 // Set URL template
 scraper.Url = "https://www.example.com/{location}/{category}?page={page}";
+// Add URL placeholders data
+scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
+scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
 // Set container selectors
 scraper.ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]";
 // Set item selectors
 scraper.ItemSelector = @"div[id:=""lid-\d+""][class=""result""] div[class=""v-card""]";
 // Set next-page selectors
 scraper.NextPageSelector = @"div.pagination a[class=""next ajax-page""]";
-// Add URL placeholders data
-scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
-scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
 // Add data fields
 scraper.Fields.Add(new TextField("Name", "a.business-name span"));
 scraper.Fields.Add(new TextField("Address", "p.adr"));
@@ -53,11 +53,20 @@ The URL can also contain user tags. In the code above, two user tags are defined
 
 #### ContainerSelector
 
-The `ContainerSelector` property is a string *selector* that identifies the elements on the page that contain all the items to be scraped. Selectors used by WebScraper are similar to CSS or jQuery selectors. There is a section on WebScraper selectors below. For now, just know that selectors describe specific elements on a page.
+The `ContainerSelector` property is a string *selector* that identifies the elements on the page that contain all the items to be scraped. Selectors used by WebScraper are similar to CSS or jQuery selectors. There is a section on WebScraper selectors below. For now, just know that selectors describe one or more elements on a page.
 
 The container narrows down the area to be searched when looking for data to scrape, and so it makes the code a little more efficient. But `ContainerSelector` is the only selector that is optional. If it is not provided, then the entire page is the container.
 
 #### ItemSelector
 
-The `ItemSelector` property identifies 
+The `ItemSelector` property is a string selector that identifies the elements within the container that contain data for one item. For example, if you are scanning a website that lists employee details, you would have an element that contains all the employees on the current page (the container). And within the container you would have any number of elements that contain the information for a specific employee (the item).
 
+The library will look for the specific data items you are requesting within the item element or elements, and the library will know all data found within this location is for one employee (item). 
+
+#### NextPageSelector
+
+
+
+
+
+## Selectors
