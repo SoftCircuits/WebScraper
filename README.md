@@ -47,9 +47,33 @@ As you can see, there are a number of steps to get the class working. We'll go t
 
 #### Url
 
-After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain a `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number. We'll discuss this a little more later.
+After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain a `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number. For more details, see the NextPageSelector section further down.
 
-The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply. We will also discuss this a little more later.
+The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply.
+
+#### Placeholders
+
+The `Placeholders` property is a collection that defines the values you want to replace any user tags you've defined. A `Placeholder` contains a name--the tag without the curly braces (`{` and `}`), and a list of items that will replace the tag.
+
+So if your URL is `"http://www.example.com/{category}"`, and you define a `Placeholder` with the name `"category"` (not case-sensitive) and the list of values: `"electrical"`, `"plumbing"`, and `"furniture"`, the `Scraper` class will examine the following URLs:
+
+- http://www.example.com/electrical
+- http://www.example.com/plumbing
+- http://www.example.com/furniture
+
+Moreover, if you changed the URL to `"http://www.example.com/{location}/{category}"` and added a second `Placeholder` with the name `"location"` and the list of values: `"Los-Angeles"`, `"Denver"`, and `"New-York"`, it will example the following URLs:
+
+- http://www.example.com/Los-Angeles/electrical
+- http://www.example.com/Los-Angeles/plumbing
+- http://www.example.com/Los-Angeles/furniture
+- http://www.example.com/Denver/electrical
+- http://www.example.com/Denver/plumbing
+- http://www.example.com/Denver/furniture
+- http://www.example.com/New-York/electrical
+- http://www.example.com/New-York/plumbing
+- http://www.example.com/New-York/furniture
+
+As you can see, the library will generate a URL using every combination of placeholders you provide, regardless of the number of placeholders you define. In addition, if the `{page}` tag is implemented, multiple pages will be generated for every combination of your user tags.
 
 #### ContainerSelector
 
