@@ -126,3 +126,52 @@ This field type extracts the outer HTML of the matching element or elements.
 Since it is possible to have more than one element match the target selectors, multiple values will be concatenated together. Use the `DataSeparator` property to insert a delimiter between multiple values. This property is a comma by default.
 
 ## Selectors
+
+Selectors are used identify elements in an HTML document. People familiar with CSS or jQuery should be familiar with the concept of selectors. WebScraper selectors are very similar with a couple of minor differences.
+
+### "*" (Wildcard)
+
+The wildcard character specified all HTML elements in the range being searched.
+
+### Tag Names
+
+You can also specify the tag name to return all the tags with the given name. For example, `"p"`, would return all the `<p>` tags in the range being searched. Tag names are not case-sensitive.
+
+### "#", "." and ":"
+
+These characters are shortcuts for IDs, classes and type attribute.
+
+`"p#center-ad"` matches `<p id="center-ad">`.
+
+`"a.align-right"` matches `<a href="#" class="align-right">`.
+
+`"input:button"` matches `<input type="button">`.
+
+For greater control over attributes, you can use square brackets (`[]`). This is similar to specifying attributes in jQuery, but there are some differences. The first difference is that all the variations for finding a match at the start, middle or end are not supported by WebScraper. Instead, you can use the `:=` operator to specify that the value is a regular expression and the code will match if the attribute value matches that regular expression.
+
+`"p[id=\"center-ad\"]"` would match `<p>` tags with the attribute `id="center-ad"`.
+
+`"p[id=center-ad][class=align-right]"` matches any `<p>` tags that have both attributes `id="center-ad"` and `class="align-right"`.
+
+Quotes within the square brackets are optional if the value contains no whitespace or most punctuation. For example, `"p[id=center-ad][class=align-right]"`.
+
+`"a[href]"` returns all `<a>` tags that have an `href` attribute. The value of that attribute does not matter.
+
+`"p[data-id:=\"abc-\\d+\"]"` matches any `<p>` tags with the attribute `data-id` with a value that matches the regular expression `"abc-\d+"`. This example is not case-sensitive.
+nodes = document.Find("p[data-id:=\"abc-\\d+\"]");
+
+`"a[href:=\"^(http:\\/\\/|https:\\/\\/)?(www\\.)?blackbeltcoder.com\"]"` matches all `<a>` links that link to blackbeltcoder.com. This regular expression allows optional http:// or https://, and www. prefix. This example is also not case-sensitive.
+
+Note that there is one key difference when using square brackets. When using a pound (#), period (.) or colon (:) to specify an attribute value, it is considered a match if it matches any value within that attribute. For example, the selector div.right-align would match the attribute class="main-content right-align". When using square brackets, it must match the entire value (although there are exceptions to this when using regular expressions).
+
+Multiple Selectors
+There are several cases where you can specify multiple selectors.
+
+// Returns all <a>, <div> and <p> tags
+IEnumerable<HtmlElementNode> nodes = document.Find("a, div, p");
+
+// Returns all <span> tags that are descendants of a <div> tag
+nodes = document.Find("div span");
+
+// Returns all <span> tags that are a direct descendant of a <div> tag
+nodes = document.Find("div > span");
