@@ -121,4 +121,8 @@ This field type extracts the inner HTML of the matching element or elements.
 
 This field type extracts the outer HTML of the matching element or elements.
 
+### DataSeparator
+
+Since it is possible to have more than one element match the target selectors, multiple values will be concatenated together. Use the `DataSeparator` property to insert a delimiter between multiple values. This property is a comma by default.
+
 ## Selectors
