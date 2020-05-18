@@ -16,106 +16,37 @@ namespace WebScraper.Tests
     [TestClass]
     public class Tests
     {
+        [TestMethod]
+        public async Task TestYellowPagesAsync()
+        {
+            Scraper scraper = new Scraper
+            {
+                Url = "https://www.yellowpages.com/{location}/{category}?page={page}",
+                ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]",
+                ItemSelector = @"div[id:=""lid-\d+""][class=""result""] div[class=""v-card""]",
+                NextPageSelector = @"div.pagination a[class=""next ajax-page""]",
+                DataSeparator = ",",
+            };
 
-        //public IEnumerable<string> GetUrlList(string url, IEnumerable<Placeholder> placeholders)
-        //{
-        //    PlaceholderIterator iterator = new PlaceholderIterator(url);
-        //    foreach (Placeholder placeholder in placeholders)
-        //        iterator.Add(new PlaceholderIteratorItem(placeholder));
-        //    iterator.Reset(out url);
-        //    do
-        //    {
-        //        yield return url;
-        //    } while (iterator.Next(out url));
-        //}
+            scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
+            scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
+            scraper.Fields.Add(new TextField("Name", "a.business-name span"));
+            scraper.Fields.Add(new TextField("Address", "p.adr"));
+            scraper.Fields.Add(new TextField("Phone", "div.phones.phone.primary"));
+            scraper.Fields.Add(new TextField("Category", "div.categories > a"));
+            scraper.Fields.Add(new AttributeField("Website", "a.track-visit-website", "href"));
 
-        //[TestMethod]
-        //public async Task TestMultiAsync()
-        //{
-        //    IEnumerable<string> urls = GetUrlList("https://www.yellowpages.com/{location}/{category}?page={page}", new[] {
-        //        new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", "saint-george-ut", "provo-ut", "sandy-ut", "logan-ut", "layton-ut", "orem-ut"}),
-        //        new Placeholder("category", new[] { "lawn-mower-repair", "medical-equipment-supplies", "female-escorts", "plate-window-glass-repair-replacement", "24-hour-urgent-care", "concrete-contractors", "taxis", "emissions-testing", "adult-novelty-stores", "veterinary-clinics", "banquet-halls-reception-facilities", "olive-garden", "home-depot", "laundromat", "salvage-yards", "plumbers", "retail-stores", "towing-companies", "shoe-repair", "chinese-food-delivery" }),
-        //    });
+            scraper.UpdateProgress += Scraper_UpdateProgress;
 
-        //    using HttpClient client = new HttpClient();
+            await scraper.RunAsync(@"D:\Users\Jonathan\Desktop\Scraper.csv");
+        }
 
-        //    foreach (string url in urls)
-        //    {
-        //        var response = await client.GetAsync(url);
-
-        //        // Throw an exception on error status code
-        //        //response.EnsureSuccessStatusCode();
-
-        //        Stream stream = await client.GetStreamAsync(url);
-        //        string html = await client.GetStringAsync(url);
+        private void Scraper_UpdateProgress(object sender, UpdateProgressEventArgs e)
+        {
+            Debug.WriteLine($"{e.Current}/{e.Maximum} : {e.Status}");
+        }
 
 
-
-        //        if (!response.IsSuccessStatusCode)
-        //            return;
-
-        //        //string html = await response.Content.ReadAsStringAsync();
-
-        //        //string s = html;
-
-        //    }
-        //}
-
-
-        //const int MaxDegreeOfParallelism = 10;
-
-        //public async Task DownloadP(IEnumerable<string> urls)
-        //{
-        //    await Task.Factory.StartNew(() => Parallel.ForEach(urls, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, DownloadFile));
-        //    //Parallel.ForEach(urls, new ParallelOptions { MaxDegreeOfParallelism = MaxDegreeOfParallelism }, DownloadFile);
-        //}
-
-        ////private void DownloadFile(string url)
-        //private async Task DownloadFile(string url)
-        //{
-        //    using HttpClient client = new HttpClient();
-
-        //    int nextIndex = Interlocked.Increment(ref count);
-
-        //    string html = await client.GetStringAsync(url);
-        //    //await client.GetStreamAsync(url);
-
-        //    //await client.DownloadFileTaskAsync(url, "lecture" + nextIndex + ".pdf");
-        //    //listBox.Items.Add(url);
-
-        //}
-
-
-
-        //[TestMethod]
-        //public async Task TestAsync()
-        //{
-        //    Scraper scraper = new Scraper
-        //    {
-        //        Url = "https://www.yellowpages.com/{location}/{category}?page={page}",
-        //        ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]",
-        //        ItemSelector = @"div[id:=""lid-\d+""][class=""result""] div[class=""v-card""]",
-        //        NextPageSelector = @"div.pagination a[class=""next ajax-page""]",
-        //        DataSeparator = ",",
-        //    };
-
-        //    scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
-        //    scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
-        //    scraper.Fields.Add(new TextField("Name", "a.business-name span"));
-        //    scraper.Fields.Add(new TextField("Address", "p.adr"));
-        //    scraper.Fields.Add(new TextField("Phone", "div.phones.phone.primary"));
-        //    scraper.Fields.Add(new TextField("Category", "div.categories > a"));
-        //    scraper.Fields.Add(new AttributeField("Website", "a.track-visit-website", "href"));
-
-        //    scraper.UpdateProgress += Scraper_UpdateProgress;
-
-        //    await scraper.RunAsync(@"D:\Users\Jonathan\Desktop\Scraper.csv");
-        //}
-
-        //private void Scraper_UpdateProgress(object sender, UpdateProgressEventArgs e)
-        //{
-        //    Debug.WriteLine($"{e.Current}/{e.Maximum} : {e.Status}");
-        //}
 
         [TestMethod]
         public void TestPlaceholderIterator()

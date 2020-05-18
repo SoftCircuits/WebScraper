@@ -69,8 +69,9 @@ namespace SoftCircuits.WebScraper
         public bool WriteColumnHeaders { get; set; }
 
         /// <summary>
-        /// When more than one field value is found the values are concatenated together.
-        /// This property is the text that appears between those values.
+        /// When more than one field value matches the target, multiple values are
+        /// concatenated together. The value of this property specifies a delimiter
+        /// that is inserted between multiple values.
         /// </summary>
         public string DataSeparator { get; set; } = ",";
 
