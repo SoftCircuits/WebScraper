@@ -133,39 +133,40 @@ Selectors are used identify elements in an HTML document. WebScraper selectors a
 
 The wildcard character matches all HTML elements in the range being searched.
 
-`"*"` matches all HTML elmements in the range being searched.
+| Selector | Matches |
+| --- | --- |
+| `*` | All HTML elmements in the range being searched |
 
 ### Tag Names
 
-You can also specify the tag name to return all the tags with the given name.
+You can also specify the tag name to return all the tags with the given name. Tag names are not case-sensitive.
 
-`"p"` would match all the `<p>` tags in the range being searched. Tag names are not case-sensitive.
+| Selector | Matches |
+| --- | --- |
+| `p` | All the `<p>` tags in the range being searched.
 
 ### "#", "." and ":"
 
 These characters are shortcuts for ID, class and type attributes.
 
-`"p#center-ad"` matches `<p id="center-ad">`.
-
-`"a.align-right"` matches `<a href="#" class="align-right">`.
-
-`"input:button"` matches `<input type="button">`.
+| Selector | Matches |
+| --- | --- |
+| `p#center-ad` | `<p id="center-ad">` |
+| `a.align-right` | `<a href="#" class="align-right">` |
+| `input:button` | `<input type="button">` |
 
 ### Square Brackets ([])
 
-For greater control over attributes, you can use square brackets (`[]`). This is similar to specifying attributes in jQuery, but there are some differences. The first difference is that all the variations for finding a match at the start, middle or end are not supported by WebScraper. Instead, you can use the `:=` operator to specify that the value is a regular expression and the code will match if the attribute value matches that regular expression.
+For greater control over attributes, you can use square brackets. This is similar to specifying attributes in jQuery, but there are some differences. The first difference is that all the variations for finding a match at the start, middle or end are not supported by WebScraper. Instead, you can use the `:=` operator to specify that the value is a regular expression and the code will match if the attribute value matches that regular expression.
 
-`"p[id=\"center-ad\"]"` matches `<p>` tags with the attribute `id="center-ad"`.
-
-`"p[id=center-ad][class=align-right]"` matches any `<p>` tags that have both attributes `id="center-ad"` and `class="align-right"`.
-
-Quotes within the square brackets are optional if the value contains no whitespace or most punctuation. For example, `"p[id=center-ad][class=align-right]"` is valid too.
-
-`"a[href]"` matches all `<a>` tags that have an `href` attribute. The attribute value does not matter.
-
-`"p[data-id:=\"abc-\\d+\"]"` matches any `<p>` tags that have the attribute `data-id` with the value that matches the regular expression `"abc-\d+"`. This example is not case-sensitive.
-
-`"a[href:=\"^(http:\\/\\/|https:\\/\\/)?(www\\.)?blackbeltcoder.com\"]"` matches all `<a>` links that link to blackbeltcoder.com. This regular expression allows optional `http://` or `https://`, and `www.` prefix. This example is also not case-sensitive.
+| Selector | Matches |
+| --- | --- |
+| `p[id=\"center-ad\"]` | All `<p>` tags with the attribute `id="center-ad"` |
+| `p[id=center-ad][class=align-right]` | All `<p>` tags that have both attributes `id="center-ad"` and `class="align-right"` |
+| `p[id=center-ad][class=align-right]` | Same as above. Quotes within the square brackets are optional if the value contains no whitespace or most punctuation |
+| `a[href]` | All `<a>` tags that have an `href` attribute. The attribute value does not matter
+| `p[data-id:=\"abc-\\d+\"]` | All `<p>` tags that have the attribute `data-id` with a value that matches the regular expression `"abc-\d+"`. This example is not case-sensitive |
+| `a[href:=\"^(http:\\/\\/|https:\\/\\/)?(www\\.)?blackbeltcoder.com\"]` | All `<a>` links that link to blackbeltcoder.com. This regular expression allows optional `http://` or `https://`, and `www.` prefix. This example is also not case-sensitive.
 
 Note that there is one key difference when using square brackets. When using a pound (`#`), period (`.`) or colon (`:`) to specify an attribute value, it is considered a match if it matches any value within that attribute. For example, the selector `"div.right-align"` would match the attribute `class="main-content right-align"`. When using square brackets, it must match the entire value (although there are exceptions to this when using regular expressions).
 
@@ -173,9 +174,8 @@ Note that there is one key difference when using square brackets. When using a p
 
 There are several cases where you can specify multiple selectors.
 
-`"a, div, p"` matches all `<a>`, `<div>` and `<p>` tags.
-
-`"div span"` matches all `<span>` tags that are descendants of a `<div>` tag.
-
-`div > span` matches all `<span>` tags that are a direct descendant of a `<div>` tag.
-
+| Selector | Matches |
+| --- | --- |
+| `"a, div, p"` | All `<a>`, `<div>` and `<p>` tags  |
+| `"div span"` | All `<span>` tags that are descendants of a `<div>` tag |
+| `div > span` | All `<span>` tags that are a direct descendant of a `<div>` tag |
