@@ -164,14 +164,13 @@ nodes = document.Find("p[data-id:=\"abc-\\d+\"]");
 
 Note that there is one key difference when using square brackets. When using a pound (#), period (.) or colon (:) to specify an attribute value, it is considered a match if it matches any value within that attribute. For example, the selector div.right-align would match the attribute class="main-content right-align". When using square brackets, it must match the entire value (although there are exceptions to this when using regular expressions).
 
-Multiple Selectors
+#### Multiple Selectors
+
 There are several cases where you can specify multiple selectors.
 
-// Returns all <a>, <div> and <p> tags
-IEnumerable<HtmlElementNode> nodes = document.Find("a, div, p");
+`"a, div, p"` matches all `<a>`, `<div>` and `<p>` tags.
 
-// Returns all <span> tags that are descendants of a <div> tag
-nodes = document.Find("div span");
+`"div span"` matches all `<span>` tags that are descendants of a `<div>` tag.
 
-// Returns all <span> tags that are a direct descendant of a <div> tag
-nodes = document.Find("div > span");
+`div > span` matches all `<span>` tags that are a direct descendant of a `<div>` tag.
+
