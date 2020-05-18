@@ -135,7 +135,7 @@ The wildcard character matches all HTML elements in the range being searched.
 
 | Selector | Matches |
 | --- | --- |
-| `*` | All HTML elmements in the range being searched |
+| `*` | All HTML elements in the range being searched |
 
 ### Tag Names
 
