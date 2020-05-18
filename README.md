@@ -8,7 +8,7 @@ Install-Package SoftCircuits.WebScraper
 
 ## Introduction
 
-.NET library to scrape content from the Internet. Use it to extract information from Web pages in your own application.
+.NET library to scrape content from the Internet. Use it to extract information from Web pages in your own application. The library writes the extracted data to a CSV file.
 
 ## Using the Library
 
@@ -20,11 +20,11 @@ Scraper scraper = new Scraper();
 
 // Set URL template
 scraper.Url = "https://www.example.com/{location}/{category}?page={page}";
-// Set next-page selectors
-scraper.NextPageSelector = @"div.pagination a[class=""next ajax-page""]";
 // Add URL placeholders data
 scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
 scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
+// Set next-page selectors
+scraper.NextPageSelector = @"div.pagination a[class=""next ajax-page""]";
 // Set container selectors
 scraper.ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]";
 // Set item selectors
@@ -47,13 +47,11 @@ As you can see, there are a number of steps to get the class working. We'll go t
 
 ### Url
 
-After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain a `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number. For more details, see the NextPageSelector section further down.
-
-The URL can also contain user tags. In the code above, two user tags are defined, `{location}` and `{category}`. These tags will also be replaced with data that you supply.
+After creating an instance of the `Scraper` class, you set the `Url` property to the URL you want to scrape. This property can be set to a regular URL. The URL can also contain special placeholder tags that will be replaced with replacement values. The code example above sets the URL to a value that contains three placeholder tags: `{location}`, `{category}`, and `{page}`. We'll cover these next.
 
 ### Placeholders
 
-The `Placeholders` property is a collection that defines the values you want to replace any user tags you've defined. A `Placeholder` contains a name--the tag without the curly braces (`{` and `}`), and a list of items that will replace the tag.
+The `Placeholders` property is a collection that defines the values you want to replace any user tags you've defined. A `Placeholder` contains a name--the tag without the curly braces (`{` and `}`)--and a list of items that will replace the tag.
 
 So if your URL is `"http://www.example.com/{category}"`, and you define a `Placeholder` with the name `"category"` (not case-sensitive) and the list of values: `"electrical"`, `"plumbing"`, and `"furniture"`, the `Scraper` class will examine the following URLs:
 
@@ -75,9 +73,17 @@ Moreover, if you changed the URL to `"http://www.example.com/{location}/{categor
 
 As you can see, the library will generate a URL using every combination of placeholders you provide, regardless of the number of placeholders you define. In addition, if the `{page}` tag is implemented, multiple pages will be generated for every combination of your user tags.
 
+### NextPageSelector
+
+In addition to user tags, a URL can also contain the `{page}` tag. For targets that involve multiple pages, this tag will be replaced with the current page number.
+
+The `NextPageSelector` property is a string selector that identifies the element or elements that, if present, indicate there are more pages. *Selectors used by WebScraper are similar to CSS or jQuery selectors. There is a section on WebScraper selectors below. For now, just know that selectors describe one or more elements on a page.*
+
+For example, paged results generally have some sort of *Next* button used to access the next page. By adding a selector that describes this element, the library uses it to determine if there are additional pages. And if the `{page}` tag is included in the URL, it will be incremented for each page.
+
 ### ContainerSelector
 
-The `ContainerSelector` property is a string *selector* that identifies the elements on the page that contain all the items to be scraped. Selectors used by WebScraper are similar to CSS or jQuery selectors. There is a section on WebScraper selectors below. For now, just know that selectors describe one or more elements on a page.
+The `ContainerSelector` property is a string *selector* that identifies the elements on the page that contain all the items to be scraped.
 
 The container narrows down the area to be searched when looking for data to scrape, and so it makes the code a little more efficient. But `ContainerSelector` is the only selector that is optional. If it is not provided, then the entire page is the container.
 
@@ -87,11 +93,32 @@ The `ItemSelector` property is a string selector that identifies the elements wi
 
 The library will look for the specific data items you are requesting within the item element or elements, and the library will know all data found within this location is for one employee (item). 
 
-### NextPageSelector
+Note that the `ItemSelector` is relative to the `ContainerSelector`.
 
-The `NextPageSelector` property is a string selector that identifies the element or elements that, if present, indicate there are more pages. For example, paged results generally have some sort of *Next* button used to access the next page. By adding a selector that describes this element, the library uses it to determine if there are additional pages. And if the `{page}` tag is included in the URL, it will be incremented for each page.
+### Fields
 
+Finally, the `Fields` property is a collection that defines the specific data items you want to extract. There are several different field classes, `TextField`
 
+A `Field` has a name and selector. The name represents the data item. It is not used by the library except that, if you have configured the library to write headers to the resulting CSV file, this name will be the header of the corresponding column.
 
+The selector is a string selector that identifies the element or elements (relative to `ItemSelector`) that contain the data to be extracted for this field.
+
+There are four types of field classes:
+
+#### TextField
+
+This field type extracts the data from the text of the matching element or elements.
+
+#### AttributeField
+
+This field type extracts the data from the value of an attribute of the matching element or elements. This class has one additional property, `AttributeName`, which specifies the name of the attribute.
+
+#### InnerHtmlField
+
+This field type extracts the inner HTML of the matching element or elements.
+
+#### OuterHtmlField
+
+This field type extracts the outer HTML of the matching element or elements.
 
 ## Selectors
