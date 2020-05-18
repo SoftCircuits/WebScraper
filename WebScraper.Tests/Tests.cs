@@ -16,37 +16,36 @@ namespace WebScraper.Tests
     [TestClass]
     public class Tests
     {
-        [TestMethod]
-        public async Task TestYellowPagesAsync()
-        {
-            Scraper scraper = new Scraper
-            {
-                Url = "https://www.yellowpages.com/{location}/{category}?page={page}",
-                ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]",
-                ItemSelector = @"div[id:=""lid-\d+""][class=""result""] div[class=""v-card""]",
-                NextPageSelector = @"div.pagination a[class=""next ajax-page""]",
-                DataSeparator = ",",
-            };
 
-            scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
-            scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
-            scraper.Fields.Add(new TextField("Name", "a.business-name span"));
-            scraper.Fields.Add(new TextField("Address", "p.adr"));
-            scraper.Fields.Add(new TextField("Phone", "div.phones.phone.primary"));
-            scraper.Fields.Add(new TextField("Category", "div.categories > a"));
-            scraper.Fields.Add(new AttributeField("Website", "a.track-visit-website", "href"));
+    //    [TestMethod]
+    //    public async Task TestYellowPagesAsync()
+    //    {
+    //        Scraper scraper = new Scraper
+    //        {
+    //            Url = "https://www.yellowpages.com/{location}/{category}?page={page}",
+    //            ContainerSelector = @"div[id=""top-center-ads""][class=""search-results center-ads""],div[class=""search-results organic""],div[id=""bottom-center-ads""][class=""search-results center-ads""]",
+    //            ItemSelector = @"div[id:=""lid-\d+""][class=""result""] div[class=""v-card""]",
+    //            NextPageSelector = @"div.pagination a[class=""next ajax-page""]",
+    //            DataSeparator = ",",
+    //        };
 
-            scraper.UpdateProgress += Scraper_UpdateProgress;
+    //        scraper.Placeholders.Add(new Placeholder("location", new[] { "salt-lake-city-ut", "ogden-ut", }));
+    //        scraper.Placeholders.Add(new Placeholder("category", new[] { "lawn-mower-repair", "plumbers" }));
+    //        scraper.Fields.Add(new TextField("Name", "a.business-name span"));
+    //        scraper.Fields.Add(new TextField("Address", "p.adr"));
+    //        scraper.Fields.Add(new TextField("Phone", "div.phones.phone.primary"));
+    //        scraper.Fields.Add(new TextField("Category", "div.categories > a"));
+    //        scraper.Fields.Add(new AttributeField("Website", "a.track-visit-website", "href"));
 
-            await scraper.RunAsync(@"D:\Users\Jonathan\Desktop\Scraper.csv");
-        }
+    //        scraper.UpdateProgress += Scraper_UpdateProgress;
 
-        private void Scraper_UpdateProgress(object sender, UpdateProgressEventArgs e)
-        {
-            Debug.WriteLine($"{e.Current}/{e.Maximum} : {e.Status}");
-        }
+    //        await scraper.RunAsync(@"D:\Users\Jonathan\Desktop\Scraper.csv");
+    //    }
 
-
+    //    private void Scraper_UpdateProgress(object sender, UpdateProgressEventArgs e)
+    //    {
+    //        Debug.WriteLine($"{e.Percent}% : {e.Status}");
+    //    }
 
         [TestMethod]
         public void TestPlaceholderIterator()

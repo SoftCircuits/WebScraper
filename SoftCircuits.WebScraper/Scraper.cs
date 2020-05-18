@@ -19,9 +19,9 @@ namespace SoftCircuits.WebScraper
     /// Extracts content from web pages.
     /// </summary>
     /// <remarks>
-    /// Enhancements:
+    /// Future enhancements:
+    /// - Downloading multiple URLs asynchronously
     /// - Throttling
-    /// - Downloading multiple URLs at once
     /// </remarks>
     public class Scraper
     {
@@ -108,8 +108,13 @@ namespace SoftCircuits.WebScraper
         /// <param name="csvFile"></param>
         public async Task RunAsync(string csvFile)
         {
-            UrlsScanned = UrlErrors = 0;
+            int current = 0;
+            int total;
             bool hasMorePages = false;
+            string dataSeparator = DataSeparator ?? string.Empty;
+
+            UrlsScanned = 0;
+            UrlErrors = 0;
 
             // Verify an output file was specified
             if (csvFile == null)
@@ -136,21 +141,13 @@ namespace SoftCircuits.WebScraper
             PlaceholderIterator placeholderIterator = new PlaceholderIterator(Url);
             foreach (var placeholder in Placeholders)
                 placeholderIterator.Add(new PlaceholderIteratorItem(placeholder));
+            total = placeholderIterator.GetTotalUrlCount();
 
             // Initialize page iterator
             PageIterator pageIterator = new PageIterator(nextPageSelectors);
 
             // Initialize UpdateProgress event arguments
-            UpdateProgressEventArgs eventArgs = new UpdateProgressEventArgs
-            {
-                Status = null,
-                Maximum = placeholderIterator.GetTotalUrlCount(),
-                Current = 0,
-                Cancel = false,
-            };
-
-            if (DataSeparator == null)
-                DataSeparator = string.Empty;
+            UpdateProgressEventArgs eventArgs = new UpdateProgressEventArgs();
 
             using (CsvWriter writer = new CsvWriter(csvFile))
             {
@@ -170,38 +167,38 @@ namespace SoftCircuits.WebScraper
                             // Get next URL
                             url = pageIterator.GetCurrentPageUrl();
                             eventArgs.Status = $"Scanning '{url}'";
+                            eventArgs.Percent = UpdateProgressEventArgs.CalculatePercent(current, total);
                             OnUpdateProgress(eventArgs);
-
                             // Handle cancel request
                             if (eventArgs.Cancel)
                             {
-                                eventArgs.Status = "Aborting scan";
-                                eventArgs.Current = eventArgs.Maximum;
+                                eventArgs.Status = "Scan cancelled";
                                 OnUpdateProgress(eventArgs);
                                 return;
                             }
 
-                            // Download next web page
+                            // Download and parse next web page
                             string html = await DownloadUrlAsync(url);
                             HtmlDocument document = HtmlDocument.FromHtml(html);
 
-                            // Find containers
+                            // Search for containers
                             IEnumerable<HtmlElementNode> containers = (containerSelectors.Any()) ?
                                 containerSelectors.Find(document.RootNodes) :
                                 document.RootNodes.OfType<HtmlElementNode>();
                             IEnumerable<HtmlElementNode> nodes = itemSelectors.Find(containers);
                             hasMorePages = pageIterator.CheckIfMorePages(document);
 
-                            // Find fields in each item container and write to output
+                            // Search for fields in each item container
                             foreach (HtmlElementNode node in nodes)
                             {
                                 foreach (Field field in Fields)
                                 {
                                     IEnumerable<HtmlElementNode> matchingNodes = field.Selectors.Find(new[] { node });
-                                    field.Value = string.Join(DataSeparator, matchingNodes.Select(n => field.GetValueFromNode(n)));
+                                    field.Value = string.Join(dataSeparator, matchingNodes.Select(n => field.GetValueFromNode(n)));
                                 }
-                                writer.WriteRow(Fields.Select(f => f.Value /*?? string.Empty*/));
+                                writer.WriteRow(Fields.Select(f => f.Value));
                             }
+
                             UrlsScanned++;
                         }
                         catch (Exception ex)
@@ -210,24 +207,21 @@ namespace SoftCircuits.WebScraper
                             hasMorePages = false;
                             eventArgs.Status = $"ERROR : '{url}' : {ex.Message}";
                             OnUpdateProgress(eventArgs);
-
                             // Handle cancel request
                             if (eventArgs.Cancel)
                             {
-                                eventArgs.Status = "Aborting scan";
-                                eventArgs.Current = eventArgs.Maximum;
+                                eventArgs.Status = "Scan cancelled";
                                 OnUpdateProgress(eventArgs);
                                 return;
                             }
-
                         }
                     }
                     while (hasMorePages);
-                    eventArgs.Current++;
+                    current++;
                 } while (placeholderIterator.Next(out url));
 
                 eventArgs.Status = "Scan complete";
-                eventArgs.Current = eventArgs.Maximum;
+                eventArgs.Percent = 100;
                 OnUpdateProgress(eventArgs);
             }
         }
@@ -247,6 +241,9 @@ namespace SoftCircuits.WebScraper
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="UpdateProgress"/> event.
+        /// </summary>
         protected virtual void OnUpdateProgress(UpdateProgressEventArgs e) => UpdateProgress?.Invoke(this, e);
     }
 }

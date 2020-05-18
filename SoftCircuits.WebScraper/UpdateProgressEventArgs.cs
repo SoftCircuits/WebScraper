@@ -14,19 +14,12 @@ namespace SoftCircuits.WebScraper
         public string Status { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that indicates the current item that
-        /// is being processed.
+        /// Gets or sets the current progress as a percent from 0 to 100.
         /// </summary>
-        public int Current { get; set; }
+        public int Percent { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that indicates the maximum number of
-        /// items to process.
-        /// </summary>
-        public int Maximum { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether or not the process should be aborted.
+        /// Gets or sets whether or not the scan should be aborted.
         /// </summary>
         public bool Cancel { get; set; }
 
@@ -36,8 +29,16 @@ namespace SoftCircuits.WebScraper
         internal UpdateProgressEventArgs()
         {
             Status = string.Empty;
-            Current = Maximum = 0;
+            Percent = 0;
             Cancel = false;
         }
+
+        /// <summary>
+        /// Helper static method to calculate the progress percent.
+        /// </summary>
+        /// <param name="current">Number of items completed.</param>
+        /// <param name="total">Total number of items.</param>
+        /// <returns>The percent (from 0 to 100).</returns>
+        public static int CalculatePercent(int current, int total) => Math.Min((int)(((double)current / total) * 100), 100);
     }
 }
