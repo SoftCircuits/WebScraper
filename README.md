@@ -166,7 +166,6 @@ For greater control over attributes, you can use square brackets. This is simila
 | `p[id=center-ad][class=align-right]` | Same as above. Quotes within the square brackets are optional if the value contains no whitespace or most punctuation |
 | `a[href]` | All `<a>` tags that have an `href` attribute. The attribute value does not matter
 | `p[data-id:="abc-\d+"]` | All `<p>` tags that have the attribute `data-id` with a value that matches the regular expression `"abc-\d+"`. This example is not case-sensitive |
-| `a[href:=\"^(http:\/\/|https:\/\/)?(www\.)?blackbeltcoder.com"]` | All `<a>` links that link to blackbeltcoder.com. This regular expression allows optional `http://` or `https://`, and `www.` prefix. This example is also not case-sensitive.
 
 Note that there is one key difference when using square brackets. When using a pound (`#`), period (`.`) or colon (`:`) to specify an attribute value, it is considered a match if it matches any value within that attribute. For example, the selector `"div.right-align"` would match the attribute `class="main-content right-align"`. When using square brackets, it must match the entire value (although there are exceptions to this when using regular expressions).
 
