@@ -33,7 +33,7 @@ namespace SoftCircuits.WebScraper
         /// <param name="item">The <see cref="PlaceholderIteratorItem"/> to add.</param>
         public new void Add(PlaceholderIteratorItem item)
         {
-            if (item.Count > 0 && UrlTemplate.UrlContainsTag(item.Placeholder))
+            if (item.Count > 0 && Placeholder.UrlContainsPlaceholder(UrlTemplate, item.Placeholder))
                 base.Add(item);
         }
 

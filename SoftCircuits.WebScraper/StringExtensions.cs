@@ -29,18 +29,5 @@ namespace SoftCircuits.WebScraper
             }
             return s;
         }
-
-        /// <summary>
-        /// Determines if a URL string contains the specified tag. Comparison is not
-        /// case-sensitive.
-        /// </summary>
-        /// <param name="tag">The URL tag enclosed in curly braces (<c>{</c> and <c>}</c>).</param>
-        /// <returns></returns>
-        public static bool UrlContainsTag(this string s, string tag)
-        {
-            if (s == null)
-                return false;
-            return s.IndexOf(tag, StringComparison.OrdinalIgnoreCase) >= 0;
-        }
     }
 }

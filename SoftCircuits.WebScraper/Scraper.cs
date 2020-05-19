@@ -134,7 +134,7 @@ namespace SoftCircuits.WebScraper
             // Validate selectors (ContainerSelector is optional)
             if (!itemSelectors.Any())
                 throw new Exception($"A valid {nameof(ItemSelector)} is required.");
-            if (Url.UrlContainsTag(PageIterator.PagePlaceholder) && !nextPageSelectors.Any())
+            if (Placeholder.UrlContainsPlaceholder(Url, PageIterator.PagePlaceholder) && !nextPageSelectors.Any())
                 throw new Exception($"A valid {nameof(NextPageSelector)} is required when a {{page}} placeholder is used.");
 
             // Initialize placeholder iterator

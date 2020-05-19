@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftCircuits.WebScraper", "SoftCircuits.WebScraper\SoftCircuits.WebScraper.csproj", "{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftCircuits.WebScraper", "SoftCircuits.WebScraper\SoftCircuits.WebScraper.csproj", "{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraper.Tests", "WebScraper.Tests\WebScraper.Tests.csproj", "{A2332090-58EB-427F-B572-D2E806769805}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebScraper.Tests", "WebScraper.Tests\WebScraper.Tests.csproj", "{A2332090-58EB-427F-B572-D2E806769805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraperApp", "WebScraperApp\WebScraperApp.csproj", "{4E1F5F3C-9132-4218-A13A-C59005037BEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A2332090-58EB-427F-B572-D2E806769805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2332090-58EB-427F-B572-D2E806769805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2332090-58EB-427F-B572-D2E806769805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1F5F3C-9132-4218-A13A-C59005037BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1F5F3C-9132-4218-A13A-C59005037BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1F5F3C-9132-4218-A13A-C59005037BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1F5F3C-9132-4218-A13A-C59005037BEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

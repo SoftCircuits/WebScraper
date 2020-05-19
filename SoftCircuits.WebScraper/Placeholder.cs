@@ -52,5 +52,32 @@ namespace SoftCircuits.WebScraper
                 throw new ArgumentNullException(nameof(values));
             Values = new List<string>(values);
         }
+
+        /// <summary>
+        /// Returns this placeholder as a URL tag by wrapping the placeholder name in
+        /// curly braces (<c>{</c> and <c>}</c>).
+        /// </summary>
+        /// <returns>This placeholder as a URL tag.</returns>
+        public string GetUrlPlaceholder() => $"{{{Name}}}";
+
+        /// <summary>
+        /// Determines if the given URL contains a tag for this placeholder.
+        /// </summary>
+        /// <param name="url">The URL to search for</param>
+        /// <returns>True if the URL contains a tag for this placeholder.</returns>
+        public bool UrlContainsPlaceholder(string url) => UrlContainsPlaceholder(url, GetUrlPlaceholder());
+
+        /// <summary>
+        /// Determines if the given URL contains the given placeholder tag.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public static bool UrlContainsPlaceholder(string url, string tag)
+        {
+            if (url == null || tag == null)
+                return false;
+            return url.IndexOf(tag, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
     }
 }
