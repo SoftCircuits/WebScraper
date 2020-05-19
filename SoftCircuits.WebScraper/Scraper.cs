@@ -6,7 +6,6 @@ using SoftCircuits.CsvParser;
 using SoftCircuits.HtmlMonkey;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -234,10 +233,8 @@ namespace SoftCircuits.WebScraper
         private async Task<string> DownloadUrlAsync(string url)
         {
             using (HttpClient client = new HttpClient())
-            using (Stream data = await client.GetStreamAsync(url))
-            using (StreamReader reader = new StreamReader(data))
             {
-                return await reader.ReadToEndAsync();
+                return await client.GetStringAsync(url);
             }
         }
 

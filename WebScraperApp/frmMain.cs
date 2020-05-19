@@ -3,6 +3,7 @@ using SoftCircuits.WebScraper;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WebScraper
@@ -78,7 +79,11 @@ namespace WebScraper
                     runToolStripMenuItem1.Enabled = false;
                     tsbRun.Enabled = false;
 
+                    // Get output file
                     string csvFile = DataFiles.GetDataFile(dataFileManager1.FileName, "csv");
+                    File.Delete(csvFile);
+
+                    // Create log file
                     LogFile logFile = new LogFile(DataFiles.GetApplicationDataFile("log"))
                     {
                         LogLevel = Settings.LogResults ? LogLevel.All : LogLevel.None

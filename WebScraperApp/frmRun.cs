@@ -59,9 +59,6 @@ namespace WebScraper
             scraper.Fields.AddRange(SessionData.Fields);
             scraper.UpdateProgress += Scraper_UpdateProgress;
 
-            // Overwrite any existing data
-            File.Delete(CsvFile);
-
             Task task = scraper.RunAsync(CsvFile);
             task.Wait();
 

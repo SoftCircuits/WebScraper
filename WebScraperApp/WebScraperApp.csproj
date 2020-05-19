@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>WebScraper</RootNamespace>
     <AssemblyName>WebScraper</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +39,9 @@
   <ItemGroup>
     <Reference Include="CsvParser, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SoftCircuits.CsvParser.2.1.2\lib\netstandard2.0\CsvParser.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlMonkey, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoftCircuits.HtmlMonkey.1.1.1\lib\netstandard2.0\HtmlMonkey.dll</HintPath>
     </Reference>
     <Reference Include="IniFileParser, Version=1.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SoftCircuits.IniFileParser.1.0.11\lib\netstandard2.0\IniFileParser.dll</HintPath>
