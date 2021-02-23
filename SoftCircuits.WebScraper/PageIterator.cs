@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -27,6 +27,7 @@ namespace SoftCircuits.WebScraper
         public PageIterator(SelectorCollection nextPageSelectors)
         {
             NextPageSelectors = nextPageSelectors ?? throw new ArgumentNullException(nameof(nextPageSelectors));
+            UrlTemplate = string.Empty;
         }
 
         /// <summary>

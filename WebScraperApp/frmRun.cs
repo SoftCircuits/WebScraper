@@ -46,11 +46,8 @@ namespace WebScraper
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             // Configure web scraper object
-            Scraper scraper = new Scraper
+            Scraper scraper = new Scraper(SessionData.Url, SessionData.Container, SessionData.Item)
             {
-                Url = SessionData.Url,
-                ContainerSelector = SessionData.Container,
-                ItemSelector = SessionData.Item,
                 NextPageSelector = SessionData.NextPage,
                 DataSeparator = SessionData.DataSeparator,
                 WriteColumnHeaders = Settings.WriteColumnHeaders

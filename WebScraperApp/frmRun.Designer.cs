@@ -36,25 +36,29 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 51);
+            this.progressBar1.Location = new System.Drawing.Point(14, 59);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(523, 23);
+            this.progressBar1.Size = new System.Drawing.Size(610, 27);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 1;
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(12, 14);
+            this.lblStatus.Location = new System.Drawing.Point(14, 16);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(523, 34);
+            this.lblStatus.Size = new System.Drawing.Size(610, 39);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Initializing...";
+            this.lblStatus.UseMnemonic = false;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(460, 99);
+            this.btnCancel.Location = new System.Drawing.Point(537, 114);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(88, 27);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -70,13 +74,14 @@
             // 
             // frmRun
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 145);
+            this.ClientSize = new System.Drawing.Size(638, 167);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.progressBar1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmRun";

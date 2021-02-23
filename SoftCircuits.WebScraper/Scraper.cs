@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -49,7 +49,7 @@ namespace SoftCircuits.WebScraper
         /// indicate there is another page. Only used when the <c>{page}</c> placeholder
         /// is used.
         /// </summary>
-        public string NextPageSelector { get; set; }
+        public string? NextPageSelector { get; set; }
 
         /// <summary>
         /// Specifies the list of user placeholders.
@@ -88,13 +88,19 @@ namespace SoftCircuits.WebScraper
         /// Event raised to provide current progress. Can also be used to
         /// cancel the scan.
         /// </summary>
-        public event EventHandler<UpdateProgressEventArgs> UpdateProgress;
+        public event EventHandler<UpdateProgressEventArgs>? UpdateProgress;
 
         /// <summary>
         /// Constructs a new <see cref="Scraper"/> instance.
         /// </summary>
-        public Scraper()
+        /// <param name="url">The URL to be scraped.</param>
+        /// <param name="containerSelector">The selector for the target containers.</param>
+        /// <param name="itemSelector">The seleect for the the target items.</param>
+        public Scraper(string url, string containerSelector, string itemSelector)
         {
+            Url = url;
+            ContainerSelector = containerSelector;
+            ItemSelector = itemSelector;
             Placeholders = new List<Placeholder>();
             Fields = new List<Field>();
             WriteColumnHeaders = true;
@@ -155,7 +161,7 @@ namespace SoftCircuits.WebScraper
                     writer.WriteRow(Fields.Select(f => f.Name));
 
                 // Scan URLs
-                placeholderIterator.Reset(out string url);
+                placeholderIterator.Reset(out string? url);
                 do
                 {
                     pageIterator.Reset(url);
@@ -192,7 +198,7 @@ namespace SoftCircuits.WebScraper
                             {
                                 foreach (Field field in Fields)
                                 {
-                                    IEnumerable<HtmlElementNode> matchingNodes = field.Selectors.Find(new[] { node });
+                                    IEnumerable<HtmlElementNode> matchingNodes = field.FindValue(node);
                                     field.Value = string.Join(dataSeparator, matchingNodes.Select(n => field.GetValueFromNode(n)));
                                 }
                                 writer.WriteRow(Fields.Select(f => f.Value));

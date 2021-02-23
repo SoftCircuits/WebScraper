@@ -1,9 +1,10 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SoftCircuits.WebScraper
 {
@@ -66,7 +67,11 @@ namespace SoftCircuits.WebScraper
         /// Advances one of the placeholders and constructs a new URL.
         /// </summary>
         /// <param name="url">Returns the URL with the new placeholder values.</param>
+#if NETSTANDARD2_0
         public bool Next(out string url)
+#else
+        public bool Next([NotNullWhen(true)] out string? url)
+#endif
         {
             // Find next placeholder to increment
             for (int i = Count - 1; i >= 0; i--)

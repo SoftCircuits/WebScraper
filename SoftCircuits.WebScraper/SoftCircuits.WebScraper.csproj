@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+    <Nullable>annotations</Nullable>
+    <Nullable Condition="'$(TargetFramework)' == 'net5.0'">enable</Nullable>
+    <LangVersion>9.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Jonathan Wood</Authors>
@@ -10,18 +13,20 @@
     <RepositoryUrl>https://github.com/SoftCircuits/WebScraper</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>web scraper scraping web-scraper web-scraping html agility bot</PackageTags>
-    <PackageReleaseNotes>Simplified download code; Additional tweaks to code and XML comments; Improvements to test application.</PackageReleaseNotes>
+    <PackageReleaseNotes>Now targets .NET Standard 2.0 or .NET 5.0, and supports nullable reference types.</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Copyright>Copyright © 2020 SoftCircuits</Copyright>
+    <Copyright>Copyright © 2020-2021 SoftCircuits</Copyright>
     <PackageIcon>Logo_64x64.png</PackageIcon>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
-    <Description>.NET library to scrape content from the Internet. Use it to extract information from Web pages in your own application. Extracted data is written to a CSV file. Supports paging and can cycle through all combinations of any number of replacement tags.</Description>
-    <Version>1.0.3</Version>
+    <Description>.NET library to scrape content from the Internet. Use it to extract information from Web pages in your own application. Extracted data is written to a CSV file. Supports paging and can cycle through all combinations of any number of replacement tags.
+
+Now targets .NET Standard 2.0 or .NET 5.0, and supports nullable reference types.</Description>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SoftCircuits.CsvParser" Version="2.1.2" />
-    <PackageReference Include="SoftCircuits.HtmlMonkey" Version="1.1.1" />
+    <PackageReference Include="SoftCircuits.CsvParser" Version="3.0.0" />
+    <PackageReference Include="SoftCircuits.HtmlMonkey" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

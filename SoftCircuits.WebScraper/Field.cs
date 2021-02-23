@@ -1,9 +1,11 @@
-﻿// Copyright (c) 2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
 using SoftCircuits.HtmlMonkey;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SoftCircuits.WebScraper
 {
@@ -27,7 +29,7 @@ namespace SoftCircuits.WebScraper
         /// <summary>
         /// Holds the parsed selectors for this field.
         /// </summary>
-        internal SelectorCollection Selectors { get; set; }
+        internal SelectorCollection? Selectors { get; set; }
 
         /// <summary>
         /// Holds the resulting value.
@@ -43,7 +45,18 @@ namespace SoftCircuits.WebScraper
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Selector = selector ?? throw new ArgumentNullException(nameof(selector));
+            Selectors = null;
+            Value = string.Empty;
         }
+
+        /// <summary>
+        /// Recursively finds all the matching field elements from the given node.
+        /// </summary>
+        /// <param name="node">Root node to search.</param>
+        /// <returns>All the matching field elements from the given node.</returns>
+        internal IEnumerable<HtmlElementNode> FindValue(HtmlElementNode node) => (Selectors != null) ?
+            Selectors.Find(node) :
+            Enumerable.Empty<HtmlElementNode>();
 
         /// <summary>
         /// Extracts this field value from the given node.
