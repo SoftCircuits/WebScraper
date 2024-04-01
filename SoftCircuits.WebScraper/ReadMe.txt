@@ -7,3 +7,4 @@
   > What would the API look like?
   > How to report progress for multiple URLs?
   > Would the order matter?
+- Throttling

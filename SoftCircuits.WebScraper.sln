@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftCircuits.WebScraper", "SoftCircuits.WebScraper\SoftCircuits.WebScraper.csproj", "{55DFE05F-E3C9-46E6-9EE1-35FF3F248D82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebScraper.Tests", "WebScraper.Tests\WebScraper.Tests.csproj", "{A2332090-58EB-427F-B572-D2E806769805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraperApp", "WebScraperApp\WebScraperApp.csproj", "{4E1F5F3C-9132-4218-A13A-C59005037BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebScraperApp", "WebScraperApp\WebScraperApp.csproj", "{4E1F5F3C-9132-4218-A13A-C59005037BEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

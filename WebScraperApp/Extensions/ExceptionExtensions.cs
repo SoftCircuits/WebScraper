@@ -7,10 +7,14 @@ namespace WebScraper
     {
         public static void ShowError(this Exception ex, string message = null)
         {
+            // Get innermost exception
+            while (ex.InnerException != null)
+                ex = ex.InnerException;
+
             if (string.IsNullOrWhiteSpace(message))
                 message = ex.Message;
             else
-                message = string.Format("{0} : {1}", message, ex.Message);
+                message = $"{message} : {ex.Message}";
 
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

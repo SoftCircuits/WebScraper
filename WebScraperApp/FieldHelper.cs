@@ -17,13 +17,13 @@ namespace WebScraper
             public string Description { get; set; }
         }
 
-        private static readonly List<FieldInfo> Fields = new List<FieldInfo>
-        {
-            new FieldInfo { Type = typeof(TextField), Symbol = "Text", Description = "Text" },
-            new FieldInfo { Type = typeof(AttributeField), Symbol = "Attribute", Description = "Attribute Value" },
-            new FieldInfo { Type = typeof(InnerHtmlField), Symbol = "InnerHtml", Description = "Inner HTML" },
-            new FieldInfo { Type = typeof(OuterHtmlField), Symbol = "OuterHtml", Description = "Outer HTML" },
-        };
+        private static readonly List<FieldInfo> Fields =
+        [
+            new() { Type = typeof(TextField), Symbol = "Text", Description = "Text" },
+            new() { Type = typeof(AttributeField), Symbol = "Attribute", Description = "Attribute Value" },
+            new() { Type = typeof(InnerHtmlField), Symbol = "InnerHtml", Description = "Inner HTML" },
+            new() { Type = typeof(OuterHtmlField), Symbol = "OuterHtml", Description = "Outer HTML" },
+        ];
 
         /// <summary>
         /// Returns all the field types.
@@ -45,8 +45,7 @@ namespace WebScraper
         /// </summary>
         public static string GetSymbol(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            ArgumentNullException.ThrowIfNull(type);
             FieldInfo info = Fields.FirstOrDefault(f => f.Type == type);
             return (info != null) ? info.Symbol : string.Empty;
         }
@@ -56,8 +55,7 @@ namespace WebScraper
         /// </summary>
         public static string GetDescription(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            ArgumentNullException.ThrowIfNull(type);
             FieldInfo info = Fields.FirstOrDefault(f => f.Type == type);
             return (info != null) ? info.Description : string.Empty;
         }
@@ -67,8 +65,7 @@ namespace WebScraper
         /// </summary>
         public static Type GetSymbolType(string symbol)
         {
-            if (symbol == null)
-                throw new ArgumentNullException(nameof(symbol));
+            ArgumentNullException.ThrowIfNull(symbol);
             FieldInfo info = Fields.FirstOrDefault(f => f.Symbol == symbol);
             return (info != null) ? info.Type : typeof(TextField);
         }
@@ -78,8 +75,7 @@ namespace WebScraper
         /// </summary>
         public static Type GetDescriptionType(string description)
         {
-            if (description == null)
-                throw new ArgumentNullException(nameof(description));
+            ArgumentNullException.ThrowIfNull(description);
             FieldInfo info = Fields.FirstOrDefault(f => f.Description == description);
             return (info != null) ? info.Type : typeof(TextField);
         }

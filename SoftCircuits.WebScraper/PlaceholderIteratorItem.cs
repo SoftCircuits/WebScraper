@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -28,8 +28,12 @@ namespace SoftCircuits.WebScraper
         /// <param name="placeholder"></param>
         public PlaceholderIteratorItem(Placeholder placeholder)
         {
+#if NETSTANDARD2_0
             if (placeholder == null)
                 throw new ArgumentNullException(nameof(placeholder));
+#else
+            ArgumentNullException.ThrowIfNull(placeholder);
+#endif
 
             Placeholder = $"{{{placeholder.Name}}}";
             AddRange(placeholder.Values);

@@ -32,18 +32,17 @@ namespace WebScraper
             Item = string.Empty;
             NextPage = string.Empty;
             DataSeparator = DefaultDataSeparator;
-            Placeholders = new List<Placeholder>();
-            Fields = new List<Field>();
+            Placeholders = [];
+            Fields = [];
             FilePath = null;
         }
 
         public void Read(string path)
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            ArgumentNullException.ThrowIfNull(path);
 
             Reset();
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new();
             doc.Load(path);
 
             XmlElement root = doc.DocumentElement;
@@ -72,7 +71,7 @@ namespace WebScraper
                     case "Placeholders":
                         foreach (XmlElement placeholderElement in element.ChildNodes.OfType<XmlElement>())
                         {
-                            Placeholder placeholder = new Placeholder(placeholderElement.GetAttribute("Name"));
+                            Placeholder placeholder = new(placeholderElement.GetAttribute("Name"));
                             foreach (XmlElement valueElement in placeholderElement.ChildNodes.OfType<XmlElement>())
                                 placeholder.Values.Add(valueElement.InnerText.Trim());
                             Placeholders.Add(placeholder);
@@ -96,10 +95,9 @@ namespace WebScraper
 
         public void Write(string path)
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            ArgumentNullException.ThrowIfNull(path);
 
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new();
             doc.AppendChild(doc.CreateNode(XmlNodeType.XmlDeclaration, null, null));
             XmlElement root = (XmlElement)doc.AppendChild(doc.CreateElement(DataFiles.AppName));
 
@@ -137,11 +135,9 @@ namespace WebScraper
                     element.SetAttribute("AttributeName", attributeField.AttributeName);
             }
 
-            using (XmlTextWriter writer = new XmlTextWriter(path, Encoding.UTF8))
-            {
-                writer.Formatting = Formatting.Indented;
-                doc.Save(writer);
-            }
+            using XmlTextWriter writer = new XmlTextWriter(path, Encoding.UTF8);
+            writer.Formatting = Formatting.Indented;
+            doc.Save(writer);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace WebScraper
         public frmEditField(Field field = null)
         {
             InitializeComponent();
-            Field = field ?? throw new ArgumentNullException(nameof(field));
+            Field = field;
         }
 
         private void frmEditField_Load(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace WebScraper
             string selector = txtSelector.Text.Trim();
             string attributeName = txtAttributeName.Text;
             Type type = GetSelectedMode();
-            FieldHelper.FieldFactory(type, name, selector, attributeName);
+            Field = FieldHelper.FieldFactory(type, name, selector, attributeName);
             DialogResult = DialogResult.OK;
             Close();
         }

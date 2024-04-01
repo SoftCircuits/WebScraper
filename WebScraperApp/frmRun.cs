@@ -85,7 +85,7 @@ namespace WebScraper
         {
             string status = (btnCancel.Tag == null) ? "Scan Completed" : "Scan Aborted";
             if (e.Result is ScanResult result)
-                status = string.Format("{0} : {1} page(s) processed : {2} error(s)", status, result.UrlsScanned, result.UrlErrors);
+                status = $"{status} : {result.UrlsScanned} page(s) processed : {result.UrlErrors} error(s)";
             lblStatus.Text = status;
             progressBar1.Value = progressBar1.Maximum;
             progressBar1.Style = ProgressBarStyle.Continuous;

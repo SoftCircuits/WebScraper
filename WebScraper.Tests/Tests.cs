@@ -1,15 +1,10 @@
-// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoftCircuits.WebScraper;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebScraper.Tests
 {
@@ -55,46 +50,51 @@ namespace WebScraper.Tests
 
             iterator = new PlaceholderIterator("http://www.example.com");
             Assert.AreEqual(1, iterator.GetTotalUrlCount());
-            results = new List<string>();
+            results = [];
             iterator.Reset(out string url);
             do
             {
                 results.Add(url);
             } while (iterator.Next(out url));
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
             CollectionAssert.AreEqual(new[] {
                 "http://www.example.com"
             }, results);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
 
             iterator = new PlaceholderIterator("http://www.example.com?arg={arg}")
             {
-                new PlaceholderIteratorItem(new Placeholder("arg", new[] { "one", "two", "three" })),
+                new PlaceholderIteratorItem(new Placeholder("arg", [ "one", "two", "three" ])),
             };
             Assert.AreEqual(3, iterator.GetTotalUrlCount());
-            results = new List<string>();
+            results = [];
             iterator.Reset(out url);
             do
             {
                 results.Add(url);
             } while (iterator.Next(out url));
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
             CollectionAssert.AreEqual(new[] {
                 "http://www.example.com?arg=one",
                 "http://www.example.com?arg=two",
                 "http://www.example.com?arg=three",
             }, results);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
 
             iterator = new PlaceholderIterator("http://www.example.com?arg1={arg1}&arg2={arg2}&arg3={arg3}")
             {
-                new PlaceholderIteratorItem(new Placeholder("arg1", new[] { "one", "two", "three" })),
-                new PlaceholderIteratorItem(new Placeholder("Arg2", new[] { "a", "b", "c" })),
-                new PlaceholderIteratorItem(new Placeholder("ARG3", new[] { "red", "green", "blue" }))
+                new PlaceholderIteratorItem(new Placeholder("arg1", ["one", "two", "three"])),
+                new PlaceholderIteratorItem(new Placeholder("Arg2", ["a", "b", "c" ])),
+                new PlaceholderIteratorItem(new Placeholder("ARG3", [ "red", "green", "blue" ]))
             };
             Assert.AreEqual(27, iterator.GetTotalUrlCount());
-            results = new List<string>();
+            results = [];
             iterator.Reset(out url);
             do
             {
                 results.Add(url);
             } while (iterator.Next(out url));
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
             CollectionAssert.AreEqual(new[] {
                 "http://www.example.com?arg1=one&arg2=a&arg3=red",
                 "http://www.example.com?arg1=one&arg2=a&arg3=green",
@@ -124,6 +124,7 @@ namespace WebScraper.Tests
                 "http://www.example.com?arg1=three&arg2=c&arg3=green",
                 "http://www.example.com?arg1=three&arg2=c&arg3=blue",
             }, results);
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
         }
     }
 }

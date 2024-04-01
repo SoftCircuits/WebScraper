@@ -2,13 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-
     <RootNamespace>WebScraper</RootNamespace>
     <AssemblyName>WebScraper</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="xApp.config" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SoftCircuits.WebScraper\SoftCircuits.WebScraper.csproj">

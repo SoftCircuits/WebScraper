@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -6,6 +6,9 @@ using System;
 
 namespace SoftCircuits.WebScraper
 {
+    /// <summary>
+    /// Arguments for the <see cref="Scraper.UpdateProgress"/> event.
+    /// </summary>
     public class UpdateProgressEventArgs : EventArgs
     {
         /// <summary>
@@ -34,7 +37,7 @@ namespace SoftCircuits.WebScraper
         }
 
         /// <summary>
-        /// Helper static method to calculate the progress percent.
+        /// Helper method to calculate the progress percent.
         /// </summary>
         /// <param name="current">Number of items completed.</param>
         /// <param name="total">Total number of items.</param>

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -11,6 +11,7 @@ namespace SoftCircuits.WebScraper
         /// <summary>
         /// Performs a case-insensitive replace.
         /// </summary>
+        /// <param name="s"></param>
         /// <param name="find">The string to be replaced.</param>
         /// <param name="replace">The string to replace all occurrences of <paramref name="find"/>.</param>
         /// <returns>The modified string.</returns>
@@ -22,7 +23,11 @@ namespace SoftCircuits.WebScraper
                 int nextPos = s.IndexOf(find, pos, StringComparison.OrdinalIgnoreCase);
                 if (nextPos >= 0)
                 {
-                    s = s.Substring(0, nextPos) + replace + s.Substring(nextPos + find.Length);
+#if NETSTANDARD2_0
+                    s = string.Concat(s.Substring(0, nextPos), replace, s.Substring(nextPos + find.Length));
+#else
+                    s = string.Concat(s[..nextPos], replace, s[(nextPos + find.Length)..]);
+#endif
                     pos = nextPos + replace.Length;
                 }
                 else pos = s.Length;

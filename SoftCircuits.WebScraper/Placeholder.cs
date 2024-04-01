@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -48,8 +48,12 @@ namespace SoftCircuits.WebScraper
         public Placeholder(string name, IEnumerable<string> values)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
+#if NETSTANDARD2_0
             if (values == null)
                 throw new ArgumentNullException(nameof(values));
+#else
+            ArgumentNullException.ThrowIfNull(nameof(values));
+#endif
             Values = new List<string>(values);
         }
 
@@ -63,21 +67,25 @@ namespace SoftCircuits.WebScraper
         /// <summary>
         /// Determines if the given URL contains a tag for this placeholder.
         /// </summary>
-        /// <param name="url">The URL to search for</param>
+        /// <param name="url">The URL to search.</param>
         /// <returns>True if the URL contains a tag for this placeholder.</returns>
         public bool UrlContainsPlaceholder(string url) => UrlContainsPlaceholder(url, GetUrlPlaceholder());
 
         /// <summary>
         /// Determines if the given URL contains the given placeholder tag.
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="tag"></param>
-        /// <returns></returns>
+        /// <param name="url">The URL to search.</param>
+        /// <param name="tag">The tag to find.</param>
+        /// <returns>True if the URL contains a tag for this placeholder.</returns>
         public static bool UrlContainsPlaceholder(string url, string tag)
         {
             if (url == null || tag == null)
                 return false;
+#if NETSTANDARD2_0
             return url.IndexOf(tag, StringComparison.OrdinalIgnoreCase) >= 0;
+#else
+            return url.Contains(tag, StringComparison.OrdinalIgnoreCase);
+#endif
         }
     }
 }

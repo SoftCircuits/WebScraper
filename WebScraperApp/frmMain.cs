@@ -53,7 +53,14 @@ namespace WebScraper
 
         private void openDataFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(DataFiles.GetDataFolder());
+            try
+            {
+                Process.Start(DataFiles.GetDataFolder());
+            }
+            catch (Exception ex)
+            {
+                ex.ShowError("Unable to open data folder.");
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -70,7 +77,7 @@ namespace WebScraper
             if (dataFileManager1.PromptSaveIfModified())
             {
                 // Get data
-                SessionData data = new SessionData();
+                SessionData data = new();
                 GetControlValues(data);
 
                 try
@@ -83,7 +90,7 @@ namespace WebScraper
                     File.Delete(csvFile);
 
                     // Create log file
-                    LogFile logFile = new LogFile(DataFiles.GetApplicationDataFile("log"))
+                    LogFile logFile = new(DataFiles.GetApplicationDataFile("log"))
                     {
                         LogLevel = Settings.LogResults ? LogLevel.All : LogLevel.None
                     };
@@ -91,7 +98,7 @@ namespace WebScraper
                         logFile.Delete();
 
                     // Open run window
-                    frmRun frm = new frmRun(data, csvFile, logFile);
+                    frmRun frm = new(data, csvFile, logFile);
                     frm.ShowDialog();
 
                     if (Settings.LoadResultsAfterRun)
@@ -147,7 +154,7 @@ namespace WebScraper
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSettings frm = new frmSettings();
+            frmSettings frm = new();
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 Settings.LastFile = dataFileManager1.FileName;
@@ -161,7 +168,7 @@ namespace WebScraper
 
         private void btnPlaceholderAdd_Click(object sender, EventArgs e)
         {
-            frmEditPlaceholder frm = new frmEditPlaceholder();
+            frmEditPlaceholder frm = new();
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 lstPlaceholders.AppendItem(frm.Placeholder);
@@ -174,7 +181,7 @@ namespace WebScraper
             int index = lstPlaceholders.SelectedIndex;
             if (index >= 0)
             {
-                frmEditPlaceholder frm = new frmEditPlaceholder(lstPlaceholders.Items[index] as Placeholder);
+                frmEditPlaceholder frm = new(lstPlaceholders.Items[index] as Placeholder);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     lstPlaceholders.ReplaceItem(frm.Placeholder);
@@ -228,7 +235,7 @@ namespace WebScraper
 
         private void btnFieldAdd_Click(object sender, EventArgs e)
         {
-            frmEditField frm = new frmEditField();
+            frmEditField frm = new();
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 lstFields.AppendItem(frm.Field);
@@ -241,7 +248,7 @@ namespace WebScraper
             int index = lstFields.SelectedIndex;
             if (index >= 0)
             {
-                frmEditField frm = new frmEditField(lstFields.Items[index] as Field);
+                frmEditField frm = new(lstFields.Items[index] as Field);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     lstFields.ReplaceItem(frm.Field);
@@ -300,14 +307,14 @@ namespace WebScraper
 
         private void dataFileManager1_OpenFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
         {
-            SessionData data = new SessionData();
+            SessionData data = new();
             data.Read(e.FileName);
             SetControlValues(data);
         }
 
         private void dataFileManager1_SaveFile(object sender, MapToGrid.Utility.DataFileEventArgs e)
         {
-            SessionData data = new SessionData();
+            SessionData data = new();
             GetControlValues(data);
             data.Write(e.FileName);
         }

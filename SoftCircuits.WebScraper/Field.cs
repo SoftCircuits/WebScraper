@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2024 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -72,6 +72,11 @@ namespace SoftCircuits.WebScraper
     /// </summary>
     public class TextField : Field
     {
+        /// <summary>
+        /// Constructs a new <see cref="TextField"/> instance.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="selector"></param>
         public TextField(string name, string selector)
             : base(name, selector)
         {
@@ -85,8 +90,18 @@ namespace SoftCircuits.WebScraper
     /// </summary>
     public class AttributeField : Field
     {
+        /// <summary>
+        /// Gets the name of this field's attribute.
+        /// </summary>
         public string AttributeName { get; private set; }
 
+        /// <summary>
+        /// Constructs a new <see cref="AttributeField"/> instance.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="selector"></param>
+        /// <param name="attributeName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public AttributeField(string name, string selector, string attributeName)
             : base(name, selector)
         {
@@ -101,6 +116,11 @@ namespace SoftCircuits.WebScraper
     /// </summary>
     public class InnerHtmlField : Field
     {
+        /// <summary>
+        /// Constructs a new <see cref="InnerHtmlField"/> instance.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="selector"></param>
         public InnerHtmlField(string name, string selector)
             : base(name, selector)
         {
@@ -114,6 +134,11 @@ namespace SoftCircuits.WebScraper
     /// </summary>
     public class OuterHtmlField : Field
     {
+        /// <summary>
+        /// Constructs a new <see cref="OuterHtmlField"/> instance.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="selector"></param>
         public OuterHtmlField(string name, string selector)
             : base(name, selector)
         {

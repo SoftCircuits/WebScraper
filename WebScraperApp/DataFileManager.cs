@@ -5,15 +5,10 @@ using System.Windows.Forms;
 
 namespace MapToGrid.Utility
 {
-    public class DataFileEventArgs : EventArgs
+    public class DataFileEventArgs(string fileName) : EventArgs
     {
-        public string FileName { get; set; }
+        public string FileName { get; set; } = fileName;
         public string FileTitle => DataFileManager.GetFileTitle(FileName);
-
-        public DataFileEventArgs(string fileName)
-        {
-            FileName = fileName;
-        }
     }
 
     public partial class DataFileManager : Component
